@@ -1,0 +1,14 @@
+{
+  "$schema": "../../node_modules/@biomejs/biome/configuration_schema.json",
+  "root": false,
+  "extends": "//",
+  "files": {
+    "includes": [
+      "index.ts",
+      "sst.config.ts",
+      "package.json",
+      "tsconfig.json",
+      "!sst-env.d.ts"
+    ]
+  }
+}

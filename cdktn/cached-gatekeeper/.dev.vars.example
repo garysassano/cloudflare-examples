@@ -1,0 +1,8 @@
+# Optional. Leaving it empty is a supported mode: the gatekeeper falls back to
+# the anonymous GitHub API (60 requests/hour), which makes what the cache is
+# doing impossible to miss.
+GITHUB_TOKEN=
+
+# Caller credential -> scope. `allow` is what may be read; `write` is separate,
+# because reading a backlog should not imply being able to comment on it.
+GATEKEEPER_POLICY={"demo-key":{"subject":"demo","allow":["cloudflare/*"]},"writer-key":{"subject":"writer","allow":["cloudflare/*"],"write":["cloudflare/cloudflare-os"]}}

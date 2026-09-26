@@ -1,0 +1,17 @@
+{
+  "name": "cloudflare-examples",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "check": "pnpm -r --workspace-concurrency=1 check",
+    "format": "biome format --write .",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
+    "test": "pnpm -r --workspace-concurrency=1 --if-present test",
+    "typecheck": "pnpm -r typecheck"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "catalog:"
+  }
+}

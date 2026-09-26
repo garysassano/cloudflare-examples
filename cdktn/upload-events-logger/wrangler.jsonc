@@ -1,0 +1,21 @@
+// Wrangler owns the Worker *bundle* only: `pnpm bundle` runs
+// `wrangler deploy --dry-run --outdir dist` and cdktn/Terraform uploads the
+// result. Keep the runtime settings here in sync with `src/stacks/my-stack.ts`.
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "event-logger",
+  "main": "src/worker/index.ts",
+  "compatibility_date": "2026-09-18",
+  "compatibility_flags": ["new_module_registry"],
+  "observability": { "enabled": true },
+  "r2_buckets": [{ "binding": "LOG_BUCKET", "bucket_name": "log-bucket" }],
+  "queues": {
+    "consumers": [
+      {
+        "queue": "upload-events",
+        "max_batch_size": 100,
+        "max_batch_timeout": 5
+      }
+    ]
+  }
+}

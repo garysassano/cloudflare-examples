@@ -1,0 +1,18 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "event-logger",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-09-18",
+  "compatibility_flags": ["new_module_registry"],
+  "observability": { "enabled": true },
+  "r2_buckets": [{ "binding": "LOG_BUCKET", "bucket_name": "log-bucket" }],
+  "queues": {
+    "consumers": [
+      {
+        "queue": "upload-events",
+        "max_batch_size": 100,
+        "max_batch_timeout": 5
+      }
+    ]
+  }
+}

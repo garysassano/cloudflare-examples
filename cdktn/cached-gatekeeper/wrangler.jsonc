@@ -1,0 +1,29 @@
+// Wrangler owns the Worker *bundle* only: `pnpm bundle` runs
+// `wrangler deploy --dry-run --outdir dist` and cdktn/Terraform uploads the
+// result. Keep the runtime settings here in sync with `src/stacks/my-stack.ts`.
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "cached-gatekeeper",
+  "main": "src/worker/index.ts",
+  "compatibility_date": "2026-09-18",
+  "compatibility_flags": ["new_module_registry"],
+
+  // Workers Cache is configured per entrypoint. The default entrypoint
+  // authorizes every call, so it must never be cached. `Upstream` holds the
+  // GitHub credential and is the only thing worth caching.
+  "cache": { "enabled": false },
+  "exports": {
+    "default": { "type": "worker", "cache": { "enabled": false } },
+    "Upstream": { "type": "worker", "cache": { "enabled": true } }
+  },
+
+  "observability": {
+    "enabled": true,
+    "traces": { "enabled": true }
+  },
+
+  // Values are supplied by Terraform on deploy; `.dev.vars` overrides them locally.
+  "vars": {
+    "GATEKEEPER_POLICY": "{\"demo-key\":{\"subject\":\"demo\",\"allow\":[\"cloudflare/*\"]},\"writer-key\":{\"subject\":\"writer\",\"allow\":[\"cloudflare/*\"],\"write\":[\"cloudflare/cloudflare-os\"]},\"narrow-key\":{\"subject\":\"narrow\",\"allow\":[\"cloudflare/workerd\"]}}"
+  }
+}

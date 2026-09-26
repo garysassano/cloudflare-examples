@@ -1,0 +1,15 @@
+{
+  "language": "typescript",
+  "languageOptions": {
+    "importExtension": ".js"
+  },
+  "app": "node --import tsx src/main.ts",
+  "output": "cdktn.out",
+  "projectId": "f8acd8b4-986b-4b32-a942-cf8eb82357bc",
+  "sendCrashReports": "false",
+  "targetVersions": {
+    "terraform": ">=1.5.7",
+    "opentofu": ">=1.6.0"
+  },
+  "terraformProviders": ["cloudflare/cloudflare@~> 5.23.0"]
+}

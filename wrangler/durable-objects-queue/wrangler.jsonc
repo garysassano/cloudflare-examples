@@ -1,0 +1,15 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "my-worker",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-09-18",
+  "compatibility_flags": ["new_module_registry"],
+  "observability": { "enabled": true },
+  "durable_objects": {
+    "bindings": [{ "name": "MY_DO_NAMESPACE", "class_name": "MyDurableObject" }]
+  },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["MyDurableObject"] }],
+  "queues": {
+    "producers": [{ "queue": "my-queue", "binding": "MY_QUEUE" }]
+  }
+}

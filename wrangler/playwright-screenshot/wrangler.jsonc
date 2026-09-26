@@ -1,0 +1,9 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "screenshot-worker",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-09-18",
+  "compatibility_flags": ["new_module_registry"],
+  "observability": { "enabled": true },
+  "browser": { "binding": "BROWSER" }
+}
