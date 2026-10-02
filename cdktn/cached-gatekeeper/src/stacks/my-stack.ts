@@ -95,6 +95,7 @@ export class MyStack extends TerraformStack {
       observability: {
         enabled: true,
         traces: { enabled: true },
+        issues: { enabled: true },
       },
 
       // The whole point of the project. Caching is off for the Worker as a
