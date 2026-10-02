@@ -7,7 +7,11 @@
   "main": "src/worker/index.ts",
   "compatibility_date": "2026-09-18",
   "compatibility_flags": ["new_module_registry"],
-  "observability": { "enabled": true },
+  "observability": {
+    "enabled": true,
+    "traces": { "enabled": true },
+    "issues": { "enabled": true }
+  },
   "durable_objects": {
     "bindings": [{ "name": "MY_DO_NAMESPACE", "class_name": "MyDurableObject" }]
   },

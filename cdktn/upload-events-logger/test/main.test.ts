@@ -55,7 +55,7 @@ describe("MyStack", () => {
         script_name: "event-logger",
         main_module: "index.js",
         compatibility_flags: ["new_module_registry"],
-        observability: { enabled: true },
+        observability: { enabled: true, traces: { enabled: true }, issues: { enabled: true } },
       }),
     ).toBe(true);
 

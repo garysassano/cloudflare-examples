@@ -19,7 +19,8 @@
 
   "observability": {
     "enabled": true,
-    "traces": { "enabled": true }
+    "traces": { "enabled": true },
+    "issues": { "enabled": true }
   },
 
   // Values are supplied by Terraform on deploy; `.dev.vars` overrides them locally.

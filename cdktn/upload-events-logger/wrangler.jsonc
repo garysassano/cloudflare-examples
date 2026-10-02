@@ -7,7 +7,11 @@
   "main": "src/worker/index.ts",
   "compatibility_date": "2026-09-18",
   "compatibility_flags": ["new_module_registry"],
-  "observability": { "enabled": true },
+  "observability": {
+    "enabled": true,
+    "traces": { "enabled": true },
+    "issues": { "enabled": true }
+  },
   "r2_buckets": [{ "binding": "LOG_BUCKET", "bucket_name": "log-bucket" }],
   "queues": {
     "consumers": [

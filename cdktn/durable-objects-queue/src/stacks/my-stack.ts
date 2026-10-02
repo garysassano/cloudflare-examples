@@ -56,6 +56,8 @@ export class MyStack extends TerraformStack {
       compatibilityFlags: ["new_module_registry"],
       observability: {
         enabled: true,
+        traces: { enabled: true },
+        issues: { enabled: true },
       },
       // The Durable Object namespace is created by the migration, not by a
       // separate resource, so the binding and the migration must agree on the

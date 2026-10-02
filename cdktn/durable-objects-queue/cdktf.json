@@ -11,5 +11,5 @@
     "terraform": ">=1.5.7",
     "opentofu": ">=1.6.0"
   },
-  "terraformProviders": ["cloudflare/cloudflare@~> 5.23.0"]
+  "terraformProviders": ["cloudflare/cloudflare@~> 5.26.0"]
 }

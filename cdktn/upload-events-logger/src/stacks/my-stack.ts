@@ -86,6 +86,8 @@ export class MyStack extends TerraformStack {
       compatibilityFlags: ["new_module_registry"],
       observability: {
         enabled: true,
+        traces: { enabled: true },
+        issues: { enabled: true },
       },
       bindings: [
         {
