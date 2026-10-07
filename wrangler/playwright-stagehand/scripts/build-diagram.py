@@ -2,16 +2,13 @@
 
     python3 scripts/build-diagram.py
 
-User and Web page are the two Octicons in the picture, in ink and outside the
-boundary, bracketing the flow at either end. Cloudflare services take their
-product icons in brand orange inside it, so the two sets are what make the
-boundary readable before any label is.
-
-Workers AI is an off-path card: the flow consults it to decide the next
-action, rather than passing through it, so the generator draws it at
-BRANCH_SCALE of the row height. Its connector is bidirectional because the
-consultation is a round trip: the Worker sends page context and the model
-returns the action to take.
+Laid out like wrangler/playwright-ai-sdk's, so the sibling examples read the
+same. User and Web page are the two Octicons in the picture, outside the
+boundary at either end of the top row. Workers AI sits below the Worker,
+inside the boundary: Stagehand consults it for each observe, act and extract
+call rather than passing traffic through it. That connector is bidirectional
+because each call is a round trip: the Worker sends the page context, and the
+model answers with the action to take or the data to extract.
 """
 
 import pathlib
@@ -19,31 +16,36 @@ import sys
 
 sys.path.insert(0, str(pathlib.Path.home() / ".agents/skills/cloudflare-diagrams/assets"))
 
-from cfdiagram import Diagram, Flow, Node  # noqa: E402
+from cfdiagram import render_model  # noqa: E402
 
 OUT = pathlib.Path(__file__).resolve().parent.parent / "src/assets"
 
-
-def build(theme):
-    nodes = [
-        Node("user", "person", "User", inside=False, external=True),
-        Node("worker", "workers", "Workers", "stagehand-example"),
-        Node("browser", "browser-run", "Browser Run"),
-        Node("page", "globe", "Web page", inside=False, external=True),
-    ]
-    flows = [
-        Flow(0, 1, "GET /"),
-        Flow(1, 2, "drives Playwright", "over CDP"),
-        Flow(2, 3, "navigates", ["observe, act,", "extract"]),
-    ]
-    d = Diagram(nodes, flows, theme,
-                branch=(1, Node("ai", "workers-ai", "Workers AI"), "decides each action", True))
-    d.render()
-    return d
-
+MODEL = {
+    "title": "Stagehand on Browser Run with Workers AI",
+    "description": (
+        "A Worker runs a scripted Stagehand workflow: Workers AI decides how to perform each "
+        "step, and Stagehand drives Playwright on a Browser Run session."
+    ),
+    "nodes": [
+        {"key": "user", "icon": "person", "title": "User", "inside": False, "external": True,
+         "position": [0, 0]},
+        {"key": "worker", "icon": "workers", "title": "Workers", "sub": "stagehand-example",
+         "position": [1, 0]},
+        {"key": "browser", "icon": "browser-run", "title": "Browser Run", "position": [2, 0]},
+        {"key": "page", "icon": "globe", "title": "Web page", "inside": False, "external": True,
+         "position": [3, 0]},
+        {"key": "ai", "icon": "workers-ai", "title": "Workers AI", "sub": "nemotron-3-120b-a12b",
+         "position": [1, 1]},
+    ],
+    "flows": [
+        {"from": "user", "to": "worker", "label": "GET /"},
+        {"from": "worker", "to": "browser", "label": "drives Playwright", "sub": "over CDP"},
+        {"from": "browser", "to": "page", "label": "navigates", "sub": ["observe, act,", "extract"]},
+        {"from": "worker", "to": "ai", "label": "decides each", "sub": "action", "arrow": "both"},
+    ],
+}
 
 for theme in ("light", "dark"):
-    d = build(theme)
     path = OUT / f"arch-diagram{'' if theme == 'light' else '-dark'}.svg"
-    path.write_text(d.finish())
-    print(f"  {path.name}: {d.W:.0f}x{d.H:.0f} aspect {d.W / d.H:.2f}")
+    path.write_text(render_model(MODEL, theme))
+    print(f"  {path.name}")
