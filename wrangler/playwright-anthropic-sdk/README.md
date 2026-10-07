@@ -56,6 +56,31 @@ pnpm wrangler delete
 
 Claude's [browser use toolset](https://platform.claude.com/docs/en/agents-and-tools/tool-use/browser-use-tool) (`browser_toolset_20260801`) gives the model a fixed set of browser actions, such as `navigate`, `read_page`, `left_click`, and `type`. Claude chooses each action, and the caller performs it and returns the result. The Anthropic SDK's tool runner runs that loop. `src/playwrightBrowser.ts` is the driver: a subclass of the SDK's `BetaAbstractBrowserToolset20260801` that performs each action with Playwright on a Browser Run session. Actions the driver doesn't implement, such as `zoom`, drag, uploads, and `javascript_exec`, are offered to Claude as disabled.
 
+A run, step by step. Like `wrangler/playwright-ai-sdk`, the model sets the order; here Claude can ask for several actions in one turn:
+
+```mermaid
+sequenceDiagram
+  autonumber
+  participant R as Worker (tool runner)
+  participant C as Claude API
+  participant D as PlaywrightBrowser driver
+  participant B as Browser Run
+
+  R->>C: task + browser_toolset_20260801
+  loop until Claude answers, at most 25 turns
+    C-->>R: one or more browser calls
+    loop each call, in order
+      R->>R: URL policy check on navigate
+      R->>D: navigate, read_page, left_click...
+      D->>B: perform it with Playwright
+      B-->>D: page, snapshot or screenshot
+      D-->>R: result + open tabs
+    end
+    R->>C: tool results
+  end
+  C-->>R: final answer, JSON matching MovieInfo
+```
+
 Two checks keep Claude on the demo's host. The SDK runs a URL policy on every `navigate` call, and a Playwright route rejects any other main-frame navigation, such as a clicked link or a redirect, to a host outside `ALLOWED_HOSTS`. Images and API requests that the page makes itself are not checked.
 
 `read_page` and `find` use Playwright's AI snapshot, the accessibility tree Playwright MCP serves, which tags each element with a ref that a later click or `form_input` can target. That method is private in Playwright (`page._snapshotForAI()`), so a Playwright upgrade can change it. `find` matches the query's words against snapshot lines rather than asking a model.
