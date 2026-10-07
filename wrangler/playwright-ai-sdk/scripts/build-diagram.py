@@ -28,7 +28,7 @@ MODEL = {
     "nodes": [
         {"key": "user", "icon": "person", "title": "User", "inside": False, "external": True,
          "position": [0, 0]},
-        {"key": "worker", "icon": "workers", "title": "Workers", "sub": "playwright-agent-example",
+        {"key": "worker", "icon": "workers", "title": "Workers", "sub": "ai-sdk-example",
          "position": [1, 0]},
         {"key": "browser", "icon": "browser-run", "title": "Browser Run", "position": [2, 0]},
         {"key": "page", "icon": "globe", "title": "Web page", "inside": False, "external": True,

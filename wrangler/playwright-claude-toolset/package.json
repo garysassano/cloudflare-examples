@@ -1,5 +1,5 @@
 {
-  "name": "wrangler-playwright-claude-browser",
+  "name": "wrangler-playwright-claude-toolset",
   "private": true,
   "version": "0.0.0",
   "license": "MIT",

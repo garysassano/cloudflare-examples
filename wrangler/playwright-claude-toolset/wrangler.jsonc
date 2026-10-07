@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
-  "name": "playwright-agent-example",
+  "name": "claude-toolset-example",
   "main": "src/index.ts",
   "compatibility_date": "2026-09-18",
   "compatibility_flags": ["new_module_registry"],
@@ -10,5 +10,5 @@
     "issues": { "enabled": true }
   },
   "browser": { "binding": "BROWSER" },
-  "ai": { "binding": "AI" }
+  "secrets": { "required": ["ANTHROPIC_API_KEY"] }
 }

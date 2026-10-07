@@ -33,7 +33,7 @@ MODEL = {
     "nodes": [
         {"key": "claude", "icon": "globe", "title": "Claude API", "sub": "claude-opus-5-5",
          "inside": False, "external": True, "position": [0, 0]},
-        {"key": "worker", "icon": "workers", "title": "Workers", "sub": "claude-browser-example",
+        {"key": "worker", "icon": "workers", "title": "Workers", "sub": "claude-toolset-example",
          "position": [1, 0]},
         {"key": "browser", "icon": "browser-run", "title": "Browser Run", "position": [2, 0]},
         {"key": "page", "icon": "globe", "title": "Web page", "inside": False, "external": True,

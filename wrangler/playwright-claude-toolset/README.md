@@ -1,9 +1,14 @@
-# wrangler-playwright-claude-browser
+# wrangler-playwright-claude-toolset
 
 Wrangler app that lets Claude drive a Cloudflare Browser Run session through the Claude browser use toolset, with Playwright performing each browser action.
 
 > [!NOTE]
 > This example builds and typechecks but has not yet been run against a live deployment.
+
+### Related Apps
+
+- [wrangler/playwright-stagehand](../../wrangler/playwright-stagehand) - Scripts the steps with Stagehand on Workers AI instead of letting Claude drive.
+- [wrangler/playwright-ai-sdk](../../wrangler/playwright-ai-sdk) - Uses a Workers AI model with AI SDK tools instead of Claude's browser toolset.
 
 ## Architecture Diagram
 

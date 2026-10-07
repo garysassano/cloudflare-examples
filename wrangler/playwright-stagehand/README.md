@@ -2,6 +2,11 @@
 
 Wrangler app that instructs Stagehand to perform certain actions using Cloudflare Workers AI and Browser Run with Playwright.
 
+### Related Apps
+
+- [wrangler/playwright-claude-toolset](../../wrangler/playwright-claude-toolset) - Lets Claude drive the browser through its browser toolset instead of scripting Stagehand steps, using the paid Claude API instead of Workers AI.
+- [wrangler/playwright-ai-sdk](../../wrangler/playwright-ai-sdk) - Lets the Workers AI model drive the browser through AI SDK tools instead of scripting Stagehand steps.
+
 ## Architecture Diagram
 
 <picture>
