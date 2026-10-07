@@ -48,7 +48,7 @@ pnpm wrangler delete
 
 ## How it works
 
-The model drives the workflow. The Worker gives it the whole task and a set of browser tools, and the [AI SDK](https://ai-sdk.dev/) runs the loop. On each step, the model picks one tool call, the Worker carries it out with Playwright, and the result goes back to the model. The run ends when the model calls `report_movie`, or after 20 steps.
+The model drives the workflow. The Worker gives it the whole task and a set of browser tools, and Vercel's [AI SDK](https://ai-sdk.dev/) (`ai`) runs the loop. On each step, the model picks one tool call, the Worker carries it out with Playwright, and the result goes back to the model. The run ends when the model calls `report_movie`, or after 20 steps.
 
 `src/browserTools.ts` holds the tools, modeled on [Playwright MCP](https://github.com/microsoft/playwright-mcp)'s: `navigate`, `snapshot`, `click`, `type`, `press_key`, and `select_option`. They run inside the Worker rather than behind an MCP server. Each tool answers with Playwright's AI snapshot of the page: the accessibility tree that Playwright MCP serves, with a ref on each element for the next click or input. That method is private in Playwright (`page._snapshotForAI()`), so a Playwright upgrade can change it.
 
