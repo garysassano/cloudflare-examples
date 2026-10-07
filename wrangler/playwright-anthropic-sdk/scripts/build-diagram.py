@@ -35,14 +35,15 @@ MODEL = {
          "inside": False, "external": True, "position": [0, 0]},
         {"key": "worker", "icon": "workers", "title": "Workers", "sub": "anthropic-sdk-example",
          "position": [1, 0]},
-        {"key": "browser", "icon": "browser-run", "title": "Browser Run", "position": [2, 0]},
+        {"key": "browser", "icon": "browser-run", "title": "Browser Run", "sub": "headless Chrome",
+         "position": [2, 0]},
         {"key": "page", "icon": "globe", "title": "Web page", "inside": False, "external": True,
          "position": [3, 0]},
     ],
     "flows": [
         {"from": "worker", "to": "claude", "label": "browser toolset", "sub": ["calls, results"],
          "arrow": "both"},
-        {"from": "worker", "to": "browser", "label": "drives Playwright", "sub": "member calls"},
+        {"from": "worker", "to": "browser", "label": "Playwright", "sub": "over CDP"},
         {"from": "browser", "to": "page", "label": "navigates", "sub": ["read_page, click,", "type"]},
     ],
 }

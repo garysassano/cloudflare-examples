@@ -31,7 +31,8 @@ MODEL = {
          "position": [0, 0]},
         {"key": "worker", "icon": "workers", "title": "Workers", "sub": "stagehand-example",
          "position": [1, 0]},
-        {"key": "browser", "icon": "browser-run", "title": "Browser Run", "position": [2, 0]},
+        {"key": "browser", "icon": "browser-run", "title": "Browser Run", "sub": "headless Chrome",
+         "position": [2, 0]},
         {"key": "page", "icon": "globe", "title": "Web page", "inside": False, "external": True,
          "position": [3, 0]},
         {"key": "ai", "icon": "workers-ai", "title": "Workers AI", "sub": "nemotron-3-120b-a12b",
@@ -39,7 +40,7 @@ MODEL = {
     ],
     "flows": [
         {"from": "user", "to": "worker", "label": "GET /"},
-        {"from": "worker", "to": "browser", "label": "drives Playwright", "sub": "over CDP"},
+        {"from": "worker", "to": "browser", "label": "Playwright", "sub": "over CDP"},
         {"from": "browser", "to": "page", "label": "navigates", "sub": ["observe, act,", "extract"]},
         {"from": "worker", "to": "ai", "label": "decides each", "sub": "action", "arrow": "both"},
     ],
