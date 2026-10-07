@@ -1,4 +1,4 @@
-# wrangler-playwright-claude-toolset
+# wrangler-playwright-anthropic-sdk
 
 Wrangler app that lets Claude drive a Cloudflare Browser Run session through the Claude browser use toolset, with Playwright performing each browser action.
 

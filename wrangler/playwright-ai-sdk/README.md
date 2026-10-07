@@ -5,7 +5,7 @@ Wrangler app in which a Workers AI model drives a Cloudflare Browser Run session
 ### Related Apps
 
 - [wrangler/playwright-stagehand](../../wrangler/playwright-stagehand) - Scripts the steps with Stagehand instead of letting the model drive.
-- [wrangler/playwright-claude-toolset](../../wrangler/playwright-claude-toolset) - Uses Claude's browser toolset and the paid Claude API instead of Workers AI.
+- [wrangler/playwright-anthropic-sdk](../../wrangler/playwright-anthropic-sdk) - Uses Claude's browser toolset and the paid Claude API instead of Workers AI.
 
 ## Architecture Diagram
 
@@ -58,6 +58,6 @@ A Playwright route refuses every page-level navigation off `ALLOWED_HOSTS`, whet
 
 The model is `@cf/nvidia/nemotron-3-120b-a12b`, which is available on the Workers Free plan and has a 256k token context for the page snapshots. Any Workers AI model with tool calling works; change `MODEL` in `src/index.ts`. Open models are less reliable than frontier models at multi-step browsing, so expect some runs to stop without a report.
 
-Compared with `wrangler/playwright-stagehand`, this example isn't pinned to Stagehand 2.5 or Zod 3 and needs no adapter between Stagehand and Workers AI. It is model-driven: the model plans the steps, where the Stagehand example's code fixes them and asks the model only how to do each one. `wrangler/playwright-claude-toolset` uses the same model-driven approach with Claude's browser toolset and the paid Claude API.
+Compared with `wrangler/playwright-stagehand`, this example isn't pinned to Stagehand 2.5 or Zod 3 and needs no adapter between Stagehand and Workers AI. It is model-driven: the model plans the steps, where the Stagehand example's code fixes them and asks the model only how to do each one. `wrangler/playwright-anthropic-sdk` uses the same model-driven approach with Claude's browser toolset and the paid Claude API.
 
 On the Workers Free plan, Browser Run allows 10 minutes of browser time per day and one new browser every 20 seconds. Past either limit, runs fail with a `429` until the allowance resets.

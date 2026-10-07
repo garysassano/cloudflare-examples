@@ -4,7 +4,7 @@ Wrangler app that instructs Stagehand to perform certain actions using Cloudflar
 
 ### Related Apps
 
-- [wrangler/playwright-claude-toolset](../../wrangler/playwright-claude-toolset) - Lets Claude drive the browser through its browser toolset instead of scripting Stagehand steps, using the paid Claude API instead of Workers AI.
+- [wrangler/playwright-anthropic-sdk](../../wrangler/playwright-anthropic-sdk) - Lets Claude drive the browser through its browser toolset instead of scripting Stagehand steps, using the paid Claude API instead of Workers AI.
 - [wrangler/playwright-ai-sdk](../../wrangler/playwright-ai-sdk) - Lets the Workers AI model drive the browser through AI SDK tools instead of scripting Stagehand steps.
 
 ## Architecture Diagram

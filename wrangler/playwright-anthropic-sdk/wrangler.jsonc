@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
-  "name": "claude-toolset-example",
+  "name": "anthropic-sdk-example",
   "main": "src/index.ts",
   "compatibility_date": "2026-09-18",
   "compatibility_flags": ["new_module_registry"],
