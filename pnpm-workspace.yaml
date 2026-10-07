@@ -44,6 +44,10 @@ overrides:
 
 minimumReleaseAge: 4320
 minimumReleaseAgeStrict: true
+minimumReleaseAgeExclude:
+  # First release with the browser toolset driver class
+  # (BetaAbstractBrowserToolset20260801). Drop once it is three days old.
+  - "@anthropic-ai/sdk@0.132.0"
 
 # mise owns the package-manager binary.
 pmOnFail: ignore
