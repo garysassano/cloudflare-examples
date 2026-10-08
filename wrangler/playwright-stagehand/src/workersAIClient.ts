@@ -7,13 +7,14 @@ import {
 import zodToJsonSchema from "zod-to-json-schema";
 
 // Any Workers AI text-generation model with an OpenAI-compatible chat API and
-// JSON Schema output works here. Nemotron 3 120B A12B is available on the
-// Workers Free plan, answers in about two seconds, and has a 256k token
-// context, which matters because Stagehand sends the page's whole
-// accessibility tree with every call. On a Stagehand-shaped observe request it
-// was the only Free-plan model that both picked the right element and filled
-// in the right arguments.
-export const DEFAULT_MODEL = "@cf/nvidia/nemotron-3-120b-a12b" satisfies keyof AiModels;
+// JSON Schema output works here. Qwen 3.8 27B is available on the Workers Free
+// plan and has a 262k token context, which matters because Stagehand sends the
+// page's whole accessibility tree with every call.
+export const DEFAULT_MODEL = "@cf/qwen/qwen3.8-27b" satisfies keyof AiModels;
+
+// Qwen 3.8 defaults to xhigh reasoning. Each Stagehand call is one narrow
+// question, so low reasoning answers it faster and for fewer output tokens.
+const REASONING_EFFORT = "low";
 
 type ChatModel = typeof DEFAULT_MODEL;
 
@@ -59,6 +60,7 @@ export class WorkersAIClient extends LLMClient {
     const inputs = {
       messages: options.messages,
       temperature: options.temperature ?? 0,
+      reasoning_effort: REASONING_EFFORT,
       response_format: responseModel
         ? {
             type: "json_schema",

@@ -35,7 +35,7 @@ MODEL = {
          "position": [2, 0]},
         {"key": "page", "icon": "globe", "title": "Web page", "inside": False, "external": True,
          "position": [3, 0]},
-        {"key": "ai", "icon": "workers-ai", "title": "Workers AI", "sub": "nemotron-3-120b-a12b",
+        {"key": "ai", "icon": "workers-ai", "title": "Workers AI", "sub": "qwen3.8-27b",
          "position": [1, 1]},
     ],
     "flows": [

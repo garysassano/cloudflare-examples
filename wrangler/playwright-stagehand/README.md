@@ -80,7 +80,7 @@ sequenceDiagram
   SH-->>W: MovieInfo
 ```
 
-`src/workersAIClient.ts` answers Stagehand's model calls with Workers AI. Every call carries a Zod schema; the client asks the model for JSON matching it, validates the reply, and retries a malformed one. The default model is `@cf/nvidia/nemotron-3-120b-a12b`. Any Workers AI model with an OpenAI-compatible chat API and JSON Schema output works; pass `{ model }` to `WorkersAIClient` to change it.
+`src/workersAIClient.ts` answers Stagehand's model calls with Workers AI. Every call carries a Zod schema; the client asks the model for JSON matching it, validates the reply, and retries a malformed one. The default model is `@cf/qwen/qwen3.8-27b`, at low reasoning effort. Any Workers AI model with an OpenAI-compatible chat API and JSON Schema output works; pass `{ model }` to `WorkersAIClient` to change it.
 
 On the Workers Free plan, Browser Run allows 10 minutes of browser time per day and one new browser every 20 seconds. Past either limit, runs fail with a `429` until the allowance resets.
 
