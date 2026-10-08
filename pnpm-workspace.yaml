@@ -8,6 +8,7 @@ packages:
 catalog:
   "@biomejs/biome": ^2.5.14
   "@cloudflare/playwright": ^1.3.6
+  "@cloudflare/vitest-plugin": ^1.4.0
   "@cloudflare/workers-types": ^5.20260929.1
   "@types/node": ^26.6.3
   cdktn: ^0.24.0
@@ -17,15 +18,8 @@ catalog:
   sst: ^4.17.1
   tsx: ^4.23.15
   typescript: ^7.0.2
-  vitest: ^5.0.2
+  vitest: ^5.0.3
   wrangler: ^4.143.1
-
-catalogs:
-  # @cloudflare/vitest-plugin (the Workers runtime test pool) peers on
-  # vitest ^4.1.0 and has no release that supports vitest 5 yet.
-  vitest4:
-    "@cloudflare/vitest-plugin": ^1.3.2
-    vitest: ^4.1.11
 
 allowBuilds:
   esbuild: true
@@ -48,6 +42,17 @@ minimumReleaseAgeExclude:
   # First release with the browser toolset driver class
   # (BetaAbstractBrowserToolset20260801). Drop once it is three days old.
   - "@anthropic-ai/sdk@0.132.0"
+  # First release that peers on vitest 5, and the exact versions it pins.
+  # Drop all of these once they are three days old (2026-10-11 18:30 UTC).
+  - "@cloudflare/vitest-plugin@1.4.0"
+  - "wrangler@4.149.0"
+  - "miniflare@5.20261006.1-alpha"
+  - "workerd@1.20261006.1"
+  - "@cloudflare/workerd-darwin-64@1.20261006.1"
+  - "@cloudflare/workerd-darwin-arm64@1.20261006.1"
+  - "@cloudflare/workerd-linux-64@1.20261006.1"
+  - "@cloudflare/workerd-linux-arm64@1.20261006.1"
+  - "@cloudflare/workerd-windows-64@1.20261006.1"
 
 # mise owns the package-manager binary.
 pmOnFail: ignore

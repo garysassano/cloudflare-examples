@@ -19,9 +19,9 @@
   },
   "devDependencies": {
     "@biomejs/biome": "catalog:",
-    "@cloudflare/vitest-plugin": "catalog:vitest4",
+    "@cloudflare/vitest-plugin": "catalog:",
     "typescript": "catalog:",
-    "vitest": "catalog:vitest4",
+    "vitest": "catalog:",
     "wrangler": "catalog:"
   }
 }
