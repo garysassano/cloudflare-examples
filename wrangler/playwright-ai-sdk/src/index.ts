@@ -1,5 +1,5 @@
 import { type Browser, launch } from "@cloudflare/playwright";
-import { generateText, hasToolCall, isStepCount, tool } from "ai";
+import { type ModelMessage, generateText, hasToolCall, isStepCount, tool } from "ai";
 import { createWorkersAI } from "workers-ai-provider";
 import { z } from "zod";
 import { browserTools } from "./browserTools";
@@ -30,6 +30,28 @@ const MovieInfo = z.object({
 
 const TASK = `Open ${MOVIES_APP_URL}, search for "Furiosa", open the matching movie,
 and call report_movie with its details.`;
+
+/**
+ * Replaces every page snapshot but the latest with a placeholder. Each tool
+ * result is a full snapshot, and the whole conversation is sent on every step,
+ * so keeping old ones would grow the input with every step for no benefit:
+ * only the current page matters.
+ */
+function keepLatestSnapshot(messages: ModelMessage[]): ModelMessage[] {
+  const lastTool = messages.findLastIndex((message) => message.role === "tool");
+  return messages.map((message, index) =>
+    message.role !== "tool" || index === lastTool
+      ? message
+      : {
+          ...message,
+          content: message.content.map((part) =>
+            part.type === "tool-result"
+              ? { ...part, output: { type: "text", value: "(older page snapshot removed)" } }
+              : part,
+          ),
+        },
+  );
+}
 
 function isAllowed(url: string): boolean {
   const parsed = URL.parse(url);
@@ -72,6 +94,7 @@ export default {
         // Every step is a tool call, so the model acts or reports, never chats.
         toolChoice: "required",
         stopWhen: [hasToolCall("report_movie"), isStepCount(MAX_STEPS)],
+        prepareStep: ({ messages }) => ({ messages: keepLatestSnapshot(messages) }),
       });
 
       const report = result.toolCalls.find((call) => call.toolName === "report_movie");

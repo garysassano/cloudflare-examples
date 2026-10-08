@@ -72,6 +72,8 @@ sequenceDiagram
 
 `src/browserTools.ts` holds the tools, modeled on [Playwright MCP](https://github.com/microsoft/playwright-mcp)'s: `navigate`, `snapshot`, `click`, `type`, `press_key`, and `select_option`. They run inside the Worker rather than behind an MCP server. Each tool answers with Playwright's AI snapshot of the page: the accessibility tree that Playwright MCP serves, with a ref on each element for the next click or input. That method is private in Playwright (`page._snapshotForAI()`), so a Playwright upgrade can change it.
 
+Before each step, every page snapshot except the latest is replaced with a one-line placeholder. The whole conversation is sent to the model on every step and billed as input, so old snapshots would add cost without helping: only the current page matters.
+
 `report_movie` has no `execute` function. Its Zod schema checks the model's report, and the Worker returns that report as the response. `toolChoice: "required"` makes every step a tool call, so the model can't stop by replying in prose.
 
 A Playwright route refuses every page-level navigation off `ALLOWED_HOSTS`, whether the model typed the URL, clicked a link, or followed a redirect. Images and API requests that the page makes itself are not checked.
