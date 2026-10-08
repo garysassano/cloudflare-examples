@@ -12,10 +12,12 @@ const MOVIES_APP_URL = "https://debs-obrien.github.io/playwright-movies-app/";
 // pages make themselves are not restricted.
 const ALLOWED_HOSTS = ["debs-obrien.github.io"];
 
-// Any Workers AI model with tool calling works here. Nemotron 3 120B A12B is
-// available on the Workers Free plan and has a 256k token context, which
-// matters because every tool result carries a page snapshot.
-const MODEL = "@cf/nvidia/nemotron-3-120b-a12b";
+// Any Workers AI model with tool calling works here. Qwen 3.8 27B is available
+// on the Workers Free plan, has a 262k token context, and is tuned for agent
+// work. Its default reasoning effort is xhigh; low keeps each step quick and
+// cheap, since every step only picks the next tool call.
+const MODEL = "@cf/qwen/qwen3.8-27b";
+const REASONING_EFFORT = "low";
 
 // Each step is one model call; this bounds the whole run.
 const MAX_STEPS = 20;
@@ -59,7 +61,7 @@ export default {
       });
 
       const result = await generateText({
-        model: createWorkersAI({ binding: env.AI })(MODEL),
+        model: createWorkersAI({ binding: env.AI })(MODEL, { reasoning_effort: REASONING_EFFORT }),
         prompt: TASK,
         tools: {
           ...browserTools(page),

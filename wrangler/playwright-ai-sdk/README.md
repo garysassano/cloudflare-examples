@@ -76,7 +76,7 @@ sequenceDiagram
 
 A Playwright route refuses every page-level navigation off `ALLOWED_HOSTS`, whether the model typed the URL, clicked a link, or followed a redirect. Images and API requests that the page makes itself are not checked.
 
-The model is `@cf/nvidia/nemotron-3-120b-a12b`, which is available on the Workers Free plan and has a 256k token context for the page snapshots. Any Workers AI model with tool calling works; change `MODEL` in `src/index.ts`. Open models are less reliable than frontier models at multi-step browsing, so expect some runs to stop without a report.
+The model is `@cf/qwen/qwen3.8-27b` at low reasoning effort. It is available on the Workers Free plan and has a 262k token context for the page snapshots. Any Workers AI model with tool calling works; change `MODEL` in `src/index.ts`. Open models are less reliable than frontier models at multi-step browsing, so expect some runs to stop without a report.
 
 On the Workers Free plan, Browser Run allows 10 minutes of browser time per day and one new browser every 20 seconds. Past either limit, runs fail with a `429` until the allowance resets.
 
