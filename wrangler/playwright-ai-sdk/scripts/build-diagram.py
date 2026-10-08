@@ -30,7 +30,7 @@ MODEL = {
          "position": [0, 0]},
         {"key": "worker", "icon": "workers", "title": "Workers", "sub": "ai-sdk-example",
          "position": [1, 0]},
-        {"key": "browser", "icon": "browser-run", "title": "Browser Run", "sub": "headless Chrome",
+        {"key": "browser", "icon": "browser-run", "title": "Browser Run", "sub": "Headless Chrome",
          "position": [2, 0]},
         {"key": "page", "icon": "globe", "title": "Web page", "inside": False, "external": True,
          "position": [3, 0]},
